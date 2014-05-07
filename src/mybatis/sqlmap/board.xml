@@ -22,6 +22,10 @@
 		</where>
 	</sql>
     
+	
+	<!-- ============================================================================================ -->
+	
+	
 	<!-- 게시판 목록 조회 -->
 	<select id="selectList" parameterType="BoardModel" resultType="BoardModel">
 		SELECT
@@ -45,5 +49,79 @@
 		SELECT COUNT(NUM) FROM BOARD
 		<include refid="where"/>
 	</select>
+	
+	<!-- 게시판 상세 조회 -->
+	<select id="select" parameterType="BoardModel" resultType="BoardModel">
+		SELECT
+			NUM
+		   ,SUBJECT
+		   ,WRITER
+		   ,CONTENTS
+		   ,IP
+		   ,HIT
+		   ,REG_DATE
+		   ,MOD_DATE
+		FROM
+			BOARD
+		WHERE
+			NUM = #{num}
+	</select>
+	
+	
+	<!-- ============================================================================================ -->
+	
+	
+	<!-- 게시판 등록 -->
+	<insert id="insert">
+		INSERT INTO BOARD (
+			SUBJECT
+		   ,WRITER
+		   ,CONTENTS
+		   ,IP
+		   ,HIT
+		   ,REG_DATE
+		   ,MOD_DATE
+		) VALUES (
+			#{subject}
+		   ,#{writer}
+		   ,#{contents}
+		   ,#{ip}
+		   ,0
+		   ,NOW()
+		   ,NOW()
+		)
+	</insert>
+	
+	
+	<!-- ============================================================================================ -->
+	
+	
+	<!-- 게시판 수정 -->
+	<update id="update">
+		UPDATE BOARD SET 
+			SUBJECT		= #{subject}
+		   ,WRITER		= #{writer}
+		   ,CONTENTS	= #{contents}
+		   ,IP			= #{ip}
+		   ,MOD_DATE	= NOW()
+		WHERE
+			NUM = #{num}
+	</update>
+
+	<!-- 게시판 조회수 증가 -->
+	<update id="updateHit">
+		UPDATE BOARD SET HIT = HIT + 1 WHERE NUM = #{num}
+	</update>
+
+	
+	<!-- ============================================================================================ -->
+	
+	
+	<!-- 게시판 삭제 -->
+	<delete id="delete">
+		DELETE FROM BOARD WHERE NUM = #{num}
+	</delete>
+	
+	
 </mapper>
 

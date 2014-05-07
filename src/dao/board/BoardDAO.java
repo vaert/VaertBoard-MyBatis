@@ -87,6 +87,7 @@ public class BoardDAO implements BoardDAOImpl{
 		SqlSession session = this.sessionFactory.openSession();
 		try {
 			session.insert("board.insert", boardModel);
+			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -104,6 +105,7 @@ public class BoardDAO implements BoardDAOImpl{
 		SqlSession session = this.sessionFactory.openSession();
 		try {
 			session.update("board.update", boardModel);
+			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -121,6 +123,7 @@ public class BoardDAO implements BoardDAOImpl{
 		SqlSession session = this.sessionFactory.openSession();
 		try {
 			session.insert("board.updateHit", boardModel);
+			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -138,6 +141,7 @@ public class BoardDAO implements BoardDAOImpl{
 		SqlSession session = this.sessionFactory.openSession();
 		try {
 			session.delete("board.delete", boardModel);
+			session.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

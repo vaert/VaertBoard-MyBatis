@@ -40,16 +40,20 @@ public class BoardDeleteServlet extends HttpServlet {
 		String searchText = request.getParameter("searchText");
 		String searchTextUTF8 = new String(searchText.getBytes("ISO-8859-1"), "UTF-8");
 		String searchTextUTF8_E = URLEncoder.encode(searchTextUTF8, "UTF-8");
+		
 		// 모델
 		BoardModel boardModel = new BoardModel();
 		boardModel.setNum(Integer.parseInt(num));
 		boardModel.setPageNum(pageNum);
 		boardModel.setSearchType(searchType);
 		boardModel.setSearchText(searchTextUTF8);	
-		// 게시물 (BoardDAO : 일반 JDBC, BoardMyBatisDAO : Mybatis)
+		
+		// 게시물 ( BoardMyBatisDAO : Mybatis)
 		this.boardDAO = new BoardDAO();
+		
 		// 게시물 삭제
 		this.boardDAO.delete(boardModel);
+		
 		// 페이지 이동
 		response.sendRedirect("boardListServlet?pageNum="+pageNum+"&searchType="+searchType+"&searchText="+searchTextUTF8_E);
 	}
